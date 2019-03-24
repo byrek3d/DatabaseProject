@@ -37,8 +37,7 @@ CREATE TABLE Policy(policy_id CHAR(32),
                     require_guest_phone_verification CHAR(1)
                     PRIMARY KEY (policy_id) )
 
-CREATE TABLE Described_Description(id CHAR(32),
-                                   description_id CHAR(32),
+CREATE TABLE Described_Description(description_id CHAR(32),
                                    summary CHAR(1024),
                                    space CHAR(1024),
                                    description CHAR(1024),
@@ -48,7 +47,8 @@ CREATE TABLE Described_Description(id CHAR(32),
                                    access CHAR(1024),
                                    picture URL CHAR(32),
                                    square_feet FLOAT,
-                                   PRIMARY KEY (id,description_id)
+                                   id CHAR(32) NOT NULL
+                                   PRIMARY KEY (description_id,id)
                                    FOREIGN KEY (id) REFERENCES Listing(id)
                                    ON DELETE CASCADE) ) 
 
@@ -61,7 +61,7 @@ CREATE TABLE Review(review_id CHAR (32),
                     review_scores_location INTEGER,
                     review_scores_value INTEGER,
                     comments CHAR(1024),
-                    review_date CHAR(10),
+                    review_date DATE,
                     id CHAR(32) NOT NULL,
                     reviewer_id CHAR(32) NOT NULL, 
                     PRIMARY KEY (review_id),
@@ -73,7 +73,7 @@ CREATE TABLE Reviewer(reviewer_id CHAR(32),
                       PRIMARY KEY (reviewer_id) )
 
 CREATE TABLE Host(host_id CHAR(32), 
-                  host_since CHAR(10),
+                  host_since DATE,
                   host_about CHAR(1024),
                   host_response_time FLOAT,
                   host_response_rate FLOAT, 
@@ -100,8 +100,8 @@ CREATE TABLE Pricing(price FLOAT,
                      extra_people FLOAT,
                      minimum_nights INTEGER,
                      maximum_nighs INTEGER,
-                     id CHAR(32),
-                     PRIMARY KEY(id,price),
+                     id CHAR(32) NOT NULL,
+                     PRIMARY KEY(price,id),
                      FOREIGN KEY (id) REFERENCES Listing(id) ON DELETE CASCADE )
  
 CREATE TABLE Country(country_code CHAR(32),
