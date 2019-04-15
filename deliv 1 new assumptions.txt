@@ -1,0 +1,10 @@
+We decided to split the 'accomodation' entity into different smaller entities each with one or two attributes. Since most of these attributes can be reused for different listings, we need to generate all possible combinations of these entities, and by splitting them we decrease drastically the number of generated combinations. We did not split policy because it has up to 16 combinations, which is reasonable. 
+Other change we made was turning the 'Pricing' entity into a full one, as opposed to a weak entity. The entity can be reused by another listing which has the exact same values, so it should not be deleted when a listing is deleted.
+
+A small change was the one-to-one relation of liting with Description. This will be unique for that listing so this constraint had to be added.
+
+Another small change was made to the relation of Calendar with Listing. After checking the data we decided that it was not true that there should be an 'at least one constraint' here, so it was removed.
+
+The 'host_neighbourhood' attribute in Host was removed. Insteaad we decided to add a direct relation of Host with Neighborhood. This makes a lot of sense from a practical point of view (there was no need or advantage to keep the neighbourhood as an attribute).
+
+Finally, we changed the Review Entity. We had misunderstood the significance of the attributes such as 'review_scores_rating', 'review_score_accuracy' etc. as multiple ratings given by in each review. What they were actually supposed to do was represent an aggregation of the scores received by all the reviews for that listing. That's why we decided to put all of these attributes as a weak entity named 'Score' which has a one-to-one relation with Listing. The two atributes ('comments' and 'review_date') which were actually given by each review to the listing, are now set as attributes of the 'reviewed' relation.
