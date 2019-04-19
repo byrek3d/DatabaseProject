@@ -8,3 +8,9 @@ Another small change was made to the relation of Calendar with Listing. After ch
 The 'host_neighbourhood' attribute in Host was removed. Insteaad we decided to add a direct relation of Host with Neighborhood. This makes a lot of sense from a practical point of view (there was no need or advantage to keep the neighbourhood as an attribute).
 
 Finally, we changed the Review Entity. We had misunderstood the significance of the attributes such as 'review_scores_rating', 'review_score_accuracy' etc. as multiple ratings given by in each review. What they were actually supposed to do was represent an aggregation of the scores received by all the reviews for that listing. That's why we decided to put all of these attributes as a weak entity named 'Score' which has a one-to-one relation with Listing. The two atributes ('comments' and 'review_date') which were actually given by each review to the listing, are now set as attributes of the 'reviewed' relation.
+
+____________________________________________________________
+
+Bedding had NAN values, whic we replaced with 0
+
+Description: every NAN was replaced either eith an empty string or wit -1 in the case of square feet
