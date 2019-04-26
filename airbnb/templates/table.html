@@ -1,0 +1,25 @@
+<html>
+	<title>Tab</title>
+	<body>
+	<table >
+    {% for row in test %}
+    {%for i in range(0, 10)%}
+    <tr>
+    <td> {{ row[i] }}</td>
+    </tr> 
+    {% endfor %}
+    {% endfor %} 
+    </table>
+<h1>{{columns}}</h1>
+	</body>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+</style>
+</html>
