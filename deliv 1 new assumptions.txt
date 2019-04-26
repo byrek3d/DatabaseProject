@@ -14,3 +14,4 @@ ____________________________________________________________
 Bedding had NAN values, whic we replaced with 0
 
 Description: every NAN was replaced either eith an empty string or wit -1 in the case of square feet
+            The description_id is an incrementing number starting from 0
