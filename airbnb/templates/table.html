@@ -51,8 +51,8 @@ li a:hover  {
 }
 </style>
 
-	<title>Predefined</title>
-	<body>
+    <title>Predefined</title>
+    <body>
         <ul class="navigation">
       <li><a href="/search">Search</a></li>
       <li><a href="{{ url_for('init') }}">Predefined</a></li>
@@ -72,7 +72,7 @@ li a:hover  {
 <br>
 
 
-	<table >
+    <table >
     {% for key in columns %}
         <th>{{key}}</th>
     {% endfor %} 
@@ -88,6 +88,6 @@ li a:hover  {
     {% endfor %} 
     </table>
 
-	</body>
+    </body>
 
 </html>
