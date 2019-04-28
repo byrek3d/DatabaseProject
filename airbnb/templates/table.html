@@ -1,0 +1,93 @@
+<html>
+<style>
+
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+   max-height: 800px;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+ background-color: #fff;
+}
+table th {
+  background-color: black;
+  color: white;
+}
+
+.scrollable {
+    overflow-y:scroll;
+    height: 600px
+}
+    ul.navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover  {
+  background-color: #111;
+}
+</style>
+
+    <title>Predefined</title>
+    <body>
+        <ul class="navigation">
+      <li><a href="/search">Search</a></li>
+      <li><a href="{{ url_for('init') }}">Predefined</a></li>
+    </ul>
+      <br>
+      <br>
+       <form action = "http://localhost:5000/predefined" method = "POST">
+
+      <select name="query_nr">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <p><input type = "submit" value = "submit" /></p>
+  </form>
+<br>
+<br>
+
+
+    <table >
+    {% for key in columns %}
+        <th>{{key}}</th>
+    {% endfor %} 
+
+    {% for row in test %}
+    
+    <tr>
+        {%for i in range(0, count)%}
+    <td  class=scrollable>{{ row[i] }}</td>
+        {% endfor %}
+    </tr> 
+    
+    {% endfor %} 
+    </table>
+
+    </body>
+
+</html>
