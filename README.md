@@ -3,5 +3,5 @@
 Forza juventus
 
 
-[Link to db file](https://drive.google.com/open?id=1K-lrpxIA7QxlYGx-ok4SlVEhPKHHug49)
+[Link to db file](https://drive.google.com/file/d/1sf7vGvFiSYuHbwIR0gmgf4EPdnqP5eOK/view?usp=sharing)
 
