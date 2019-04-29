@@ -15,8 +15,12 @@ Bedding had NAN values, which we replaced with 0
 
 Description: every NAN was replaced either eith an empty string or wit -1 in the case of square feet
 
-            The description_id is an incrementing number starting from 0
+The description_id is an incrementing number starting from 0
 
 Reviewer: The data contained two users with the same reviewer_id but different reviewer_name so we decided to drop one of them (casa nuna) as it is an anomally.
 
 Pricing: Most of the listings contained values for the daily price but not the weekly and the monthly. So, to fill the missing entries we multiplied the daily price by 7 and 30 accordingly. For the security deposit and the cleaning fee we decided to put 0 in the missing entries.
+
+Policy: With regards to the old ER table we removed the policy_id and replaced it with cancellation_policy. The other boolean attributes were transformed to relationship attributes.
+
+Score: There were listings that had no reviews so all their entries where NaN. We replaced these values with -1.
