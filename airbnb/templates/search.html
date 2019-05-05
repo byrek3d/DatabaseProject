@@ -1,0 +1,100 @@
+<html>
+<style>
+
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+   max-height: 10%;
+   max-width: 10%;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+ background-color: #fff;
+}
+table th {
+  background-color: black;
+  color: white;
+}
+
+.scrollable {
+    overflow-y:scroll;
+    height: 20px
+}
+    ul.navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover  {
+  background-color: #111;
+}
+</style>
+
+    <title>Search</title>
+    <body>
+        <ul class="navigation">
+      <li><a href="{{ url_for('search') }}">Search</a></li>
+      <li><a href="{{ url_for('init') }}">Predefined</a></li>
+    </ul>
+
+
+<p>{{message}}</p>
+<form action = "http://localhost:5000/testForm" method = "POST" >
+  <select name="testDD" {{hidden1}} >
+    {% for tName in tableNames %}
+      <option value={{tName}}>{{tName}}</option>
+    {% endfor %}
+  </select>
+    <select name="testDD2" {{hidden2}} >
+    {% for tCols in tableColumns %}
+      <option value={{tCols}}>{{tCols}}</option>
+    {% endfor %}
+  </select>
+  <p {{hidden3}}>Value: <input title="Please Enter Value of the field"  name="value" type="text" /></p>
+  <p><input type = "submit" value = "submit" /></p>
+</form>
+<br>
+<br>
+
+
+    <table >
+    {% for key in columns %}
+        <th>{{key}}</th>
+    {% endfor %} 
+
+    {% for row in test %}
+    
+    <tr>
+        {%for i in range(0, count)%}
+    <td  class=scrollable>{{ row[i] }}</td>
+        {% endfor %}
+    </tr> 
+    
+    {% endfor %} 
+    </table>
+
+    </body>
+
+</html>
