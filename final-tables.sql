@@ -72,7 +72,7 @@ CREATE TABLE Reviewer(reviewer_id INTEGER,
                       PRIMARY KEY (reviewer_id) )
 
 CREATE TABLE Review (review_id INTEGER AUTO_INCREMENT,
-					 review_date DATE,                     
+					           review_date DATE,
                      comments VARCHAR(1024),
 					 PRIMARY key(review_id) ) 
 					 
@@ -84,16 +84,19 @@ CREATE TABLE Reviewed(id INTEGER,
                      FOREIGN KEY (reviewer_id) REFERENCES Reviewer(reviewer_id),
 					 FOREIGN KEY (review_id) REFERENCES Review(review_id) )
                      
-CREATE TABLE Host(host_id INTEGER, 
+CREATE TABLE Host(host_id INTEGER,
+                  host_name CHAR(32),
                   host_since DATE,
                   host_about VARCHAR(1024),
                   host_response_time FLOAT,
                   host_response_rate FLOAT, 
-                  host_neighborhood CHAR(32) NOT NULL,
-				          host_country_code INTEGER NOT NULL,
+                  host_neighbourhood CHAR(32) NOT NULL,
+				          host_country_code CHAR(2) NOT NULL,
 				          host_city CHAR(32) NOT NULL,
+				          host_thumbnail_url CHAR(32),
+				          host_picture_url CHAR(32),
                   PRIMARY KEY(host_id),
-                  FOREIGN KEY (host_country_code,host_city,host_neighborhood) REFERENCES Neighbourhood(country_code,city,neighbourhood) )
+                  FOREIGN KEY (host_country_code,host_city,host_neighbourhood) REFERENCES Neighbourhood(country_code,city,neighbourhood) )
 				  
 CREATE TABLE Verification(host_verifications CHAR(32),
                           PRIMARY KEY (host_verifications) );
@@ -139,7 +142,6 @@ CREATE TABLE Listing(id INTEGER,
                      accommodates CHAR(32) NOT NULL,
                      cancellation_policy CHAR(32) NOT NULL,
                      host_id INTEGER NOT NULL,
-                     host_name CHAR(32),
                      neighbourhood CHAR(32) NOT NULL,
 					           city CHAR(32) NOT NULL,
 					           country_code CHAR(2) NOT NULL,

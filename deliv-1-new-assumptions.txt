@@ -30,3 +30,5 @@ Provides had some duplicate lines, meaning that some listings mentioned some ame
 While observing the data, we realized that users inserted Madrid, Barcelona and Berlin with many different ways. We decided to remove any confusion from future queries by replacing all that by just the proper names of the cities.
 
 In the Listing entity we added the host_name because it drastically fascilitated our queries.
+
+In the verified_by entity there where many host_ids repeating and having the same verifications (same host and verification for different listings) so we decided to drop the duplicates
