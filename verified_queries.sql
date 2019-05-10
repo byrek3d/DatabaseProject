@@ -60,8 +60,9 @@ ORDER BY (SELECT COUNT(*)
           WHERE L.host_id = L1.host_id AND L.id < L1.id) DESC
           LIMIT 10;
 
-
-SELECT TOP (10) (L.id,L.name)
+#Verified
+SELECT L.id,L.name
 FROM Listing L, Score S
-WHERE L.neighborhood='Barcelona' AND S.id=L.id 
-ORDER BY (S.review_scores_cleanliness) DESC ;
+WHERE L.city='Barcelona' AND S.id=L.id
+ORDER BY (S.review_scores_cleanliness) DESC
+LIMIT 10;
