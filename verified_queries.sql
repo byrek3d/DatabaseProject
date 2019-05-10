@@ -31,8 +31,7 @@ FROM Listing L
 GROUP BY (L.host_id)
 HAVING COUNT (*) = 1 ;
 
-
-
+#Verified
 SELECT r1-r2
 From (Select AVG(Pr2.price) As r2
       FROM Listing L2, PROVIDES P2, Pricing Pr2
@@ -41,7 +40,7 @@ From (Select AVG(Pr2.price) As r2
       FROM Listing L1, PROVIDES P1, Pricing Pr1
       WHERE L1.id=P1.id AND P1.amenities='wifi' AND Pr1.id= L1.id);
 
-					
+#Verified
 Select s1-s2
 FROM(SELECT AVG(Pr1.price) AS s1
      FROM Listing L1, Pricing Pr1
@@ -52,20 +51,15 @@ FROM(SELECT AVG(Pr1.price) AS s1
      WHERE L2.city='Madrid' AND Pr2.id=L2.id
        AND L2.beds=8);
 
-SELECT TOP (10) DISTINCT (L.host_id,L.host_name)
-FROM Listing L
-WHERE L.country='Spain'
+#Verified
+SELECT DISTINCT L.host_id, H.host_name
+FROM Listing L, Host H
+WHERE L.country_code='ES' AND H.host_id = L.host_id
 ORDER BY (SELECT COUNT(*)
 		  FROM Listing L1
-          WHERE L.host_id = L1.host_id AND L.id < L1.id) DESC ;
+          WHERE L.host_id = L1.host_id AND L.id < L1.id) DESC
+          LIMIT 10;
 
-//problem with host_name
--- SELECT   (H.host_id,L.host_name)
--- FROM  Host H
--- WHERE L.country_code='ES'
--- ORDER BY (SELECT COUNT(*)
---     FROM Listing L1
---     WHERE L1.country_code='ES',L.host_id = L1.host_id AND L.id < L1.id) DESC
 
 SELECT TOP (10) (L.id,L.name)
 FROM Listing L, Score S

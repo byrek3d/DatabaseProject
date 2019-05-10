@@ -17,7 +17,7 @@ Description: every NAN was replaced either eith an empty string or wit -1 in the
 
 The description_id is an incrementing number starting from 0
 
-Reviewer: The data contained two users with the same reviewer_id but different reviewer_name so we decided to drop one of them (casa nuna) as it is an anomally.
+Reviewer: The data contained two pairs of users with the same reviewer_id but different reviewer_name so we decided to drop one of each pair (casa nuna and Ines) as it is an anomally.
 
 Pricing: Most of the listings contained values for the daily price but not the weekly and the monthly. So, to fill the missing entries we multiplied the daily price by 7 and 30 accordingly. For the security deposit and the cleaning fee we decided to put 0 in the missing entries.
 
