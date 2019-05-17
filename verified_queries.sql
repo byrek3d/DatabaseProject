@@ -11,24 +11,25 @@ WHERE L.id=S.id AND P.id=L.id AND P.amenities='tv' ;
 #Verified
 SELECT DISTINCT L.host_id 
 FROM Listing L, AVAILABLE_AT AV
-WHERE AV.id=L.id AND AV.available='t' AV.date <= '2019-09-31' AND AV.date >= '2019-03-00' ;
+WHERE AV.id=L.id AND AV.available='t' AND AV.date <= '2019-09-31' AND AV.date >= '2019-03-00' ;
 
 #Verified
 SELECT COUNT(*)
-FROM Listing L1
-WHERE EXISTS (SELECT L2.host_name
-			  FROM Listing L2
-			  WHERE L1.host_id < L2.host_id AND
-			  L1.host_name = L2.host_name) ;
+FROM Host H1
+WHERE EXISTS (SELECT L.id
+			  FROM Host H2, Listing L
+			  WHERE H1.host_id < H2.host_id AND
+			  H1.host_name = H2.host_name AND L.host_id = H1.host_id );
 
-							 
+#Verified
 SELECT DISTINCT AV.date
-FROM Listing L, AVAILABLE_AT AV
-WHERE L.host_name='Viajes Eco' AND AV.id= L.id AND AV.available='t' ;
+FROM Listing L, AVAILABLE_AT AV, Host H
+WHERE L.host_id= H.host_id AND H.host_name='Viajes Eco' AND AV.id= L.id AND AV.available='t' ;
 
-SELECT DISTINCT (L.host_id, L.host_name)
-FROM Listing L
-GROUP BY (L.host_id)
+SELECT DISTINCT L.host_id, H.host_name
+FROM Listing L, Host H
+WHERE L.host_id = H.host_id
+GROUP BY L.host_id
 HAVING COUNT (*) = 1 ;
 
 #Verified
