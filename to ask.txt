@@ -1,0 +1,3 @@
+q1- convert to meters?
+q5- how to do operations after groupby?
+q6- same problem as before

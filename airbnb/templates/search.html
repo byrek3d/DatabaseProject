@@ -1,4 +1,9 @@
 <html>
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script> 
 <style>
 
     table, th, td {
@@ -55,7 +60,7 @@ li a:hover  {
     <title>Search</title>
     <body>
         <ul class="navigation">
-      <li><a href="{{ url_for('search') }}">Search</a></li>
+      <li><a href="{{ url_for('search') }}">Search/Delete</a></li>
       <li><a href="{{ url_for('init') }}">Predefined</a></li>
     </ul>
 
@@ -73,10 +78,15 @@ li a:hover  {
     {% endfor %}
   </select>
   <p {{hidden3}}>Value: <input title="Please Enter Value of the field"  name="value" type="text" /></p>
-  <p><input type = "submit" value = "submit" /></p>
+  <p><input type = "submit" value = "submit"  {{hiddenSubmit}}/></p>
 </form>
 <br>
 <br>
+
+
+<form action = "http://localhost:5000/delete" method = "POST" {{hiddenDelete}}>
+  <p><input type = "submit" value = "Delete" /></p>
+</form>
 
 
     <table >

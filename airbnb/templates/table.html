@@ -1,4 +1,9 @@
 <html>
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script> 
 <style>
 
     table, th, td {
@@ -55,7 +60,7 @@ li a:hover  {
     <title>Predefined</title>
     <body>
         <ul class="navigation">
-      <li><a href="{{ url_for('search') }}">Search</a></li>
+      <li><a href="{{ url_for('search') }}">Search/Delete</a></li>
       <li><a href="{{ url_for('init') }}">Predefined</a></li>
     </ul>
       <br>
