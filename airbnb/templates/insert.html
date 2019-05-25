@@ -57,26 +57,30 @@ li a:hover  {
 }
 </style>
 
-    <title>Predefined</title>
+    <title>Insert</title>
     <body>
         <ul class="navigation">
       <li><a href="{{ url_for('search') }}">Search/Delete</a></li>
       <li><a href="{{ url_for('init') }}">Predefined</a></li>
       <li><a href="{{ url_for('insert') }}">Insert</a></li>
     </ul>
-      <br>
-      <br>
-       <form action = "http://localhost:5000/predefined" method = "POST">
 
-      <select name="query_nr">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <p><input type = "submit" value = "submit" /></p>
-  </form>
+
+<p>{{message}}</p>
+<form action = "http://localhost:5000/insertForm" method = "POST" >
+  <select name="tableInsert" {{hidden1}} >
+    {% for tName in tableNames %}
+      <option value={{tName}}>{{tName}}</option>
+    {% endfor %}
+  </select>
+    {% for col in tableColumns %}
+  <p {{hidden2}}>{{col}}: <input title="Please Enter Value of the field {{col}}"  name="{{col}}" type="text" /></p>
+   {% endfor %}
+  <p><input type = "submit" value = "submit"  {{hiddenSubmit}}/></p>
+</form>
 <br>
 <br>
+
 
 
     <table >
