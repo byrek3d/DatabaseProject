@@ -45,3 +45,32 @@ FROM COUNTER C
 GROUP BY C.host_id
 ORDER BY
 
+--Query 9
+select city
+From (
+    Select count(r.id) as reviews ,listing.city as city
+    From Listing listing, Reviewed r,
+         (
+        Select rt
+        From (
+        Select avg(l.accommodates)as avg, l.room_type as rt
+        From Listing l
+        GROUP BY l.room_type)
+        where avg>3)
+    where r.id=listing.id and listing.room_type=rt
+    group by listing.city)
+order by reviews desc limit 1;
+
+--Query 10 (problematic, no results)
+Select *
+From(
+    select  count(distinct a.id) as occupiedNr, l1.neighbourhood as occupiedN
+    from available_at a, host h,Listing l1
+    where a.date >= '2019-01-01' and  a.date <= '2019-12-31'  and h.host_id= l1.host_id and a.id=l1.id and h.host_since >= '2017-06-01' and l1.city='Madrid'
+    group by l1.neighbourhood having  a.available='t') ,
+
+    (Select count( distinct l2.id) as totalNr, l2.neighbourhood as N
+    from Listing l2
+    where l2.city='Madrid'
+    group by l2.neighbourhood)
+where occupiedN=N and occupiedNr >= totalNr/2;
