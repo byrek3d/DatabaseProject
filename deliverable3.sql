@@ -1,5 +1,5 @@
 --Query 1
-SELECT COUNT(DISTINCT  L.host_id), N.city
+EXPLAIN QUERY PLAN SELECT COUNT(DISTINCT  L.host_id), N.city
 FROM Neighbourhood N, Listing L, Described_Description D
 WHERE L.id = D.id AND L.neighbourhood = N.neighbourhood AND D.square_feet <> -1
 GROUP BY N.city
@@ -89,19 +89,6 @@ ORDER BY nc.neighbourhood, amenities DESC;
 
 
 --Query 8
--- WITH VER AS(
--- --   SELECT H.host_id, COUNT(V.host_verifications),
--- --   ROW_NUMBER() OVER(ORDER BY count(V.host_verifications) DESC) AS VR,
--- --   COUNT(*) OVER () AS TOTAL
--- --   FROM Verified_by V, Host H
--- --   WHERE V.host_id = H.host_id
--- --   GROUP BY H.host_id
--- --   ORDER BY COUNT(host_verifications) DESC
--- -- )
--- -- SELECT *
--- -- FROM VER
--- -- WHERE VER.VR = 1 OR VER.VR = VER.TOTAL --ALMOST DONE
-
 SELECT *
 FROM(
   (SELECT H.host_id AS ID1, COUNT(V.host_verifications) AS N1, AVG(S.review_scores_communication) AS AV1
@@ -142,10 +129,10 @@ From(
     where L1.id in (
       SELECT  L3.id as occupiedId
       FROM Listing L3, available_at A3
-      WHERE L3.id = A3.id AND  A3.date >= '2019-01-01' and A3.date <= '2019-12-31'
+      WHERE L3.id = A3.id AND A3.date >= '2019-01-01' and A3.date <= '2019-12-31'
       GROUP BY L3.id
       HAVING COUNT(A3.available = 'f') >= 1
-    ) and h.host_id= l1.host_id and a.id=l1.id and h.host_since >= '2017-06-01' and l1.city='Madrid'
+    ) and h.host_id= l1.host_id and a.id=l1.id and h.host_since < '2017-06-01' and l1.city='Madrid'
     group by l1.neighbourhood),
 
     (Select count( distinct l2.id) as totalNr, l2.neighbourhood as N
@@ -153,6 +140,31 @@ From(
     where l2.city='Madrid'
     group by l2.neighbourhood)
 where occupiedN=N and occupiedNr >= totalNr / 2;
+
+--Query 11
+SELECT CC1
+FROM
+(select L.country_code AS CC1, count(DISTINCT L.id) AS CA
+From  Listing L
+Where L.id in(
+  select A.id
+  from  available_at A
+  where  A.date >= '2018-01-01' AND A.date <= '2018-12-31'
+   GROUP BY A.id
+    HAVING COUNT(A.available = 't') >= 1
+)
+group by L.country_code),
+
+(select L1.country_code AS CC2, count(DISTINCT L1.id) AS CTOT
+From  Listing L1
+Where L1.id in(
+  select A1.id
+  from  available_at A1
+  where  A1.date >= '2018-01-01' AND A1.date <= '2018-12-31'
+   GROUP BY A1.id
+)
+group by L1.country_code)
+WHERE CC1 = CC2 AND CA >= CTOT / 5
 
 --Query 12
 SELECT NE1 FROM
